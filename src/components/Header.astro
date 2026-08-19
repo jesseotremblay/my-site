@@ -128,6 +128,7 @@ const { activeNav } = Astro.props;
 
 <style>
   @reference "../styles/base.css";
+  @layer components {
   #skip-to-content {
     @apply absolute -top-full left-16 z-50 bg-skin-accent px-3 py-2 text-skin-inverted transition-all focus:top-4;
   }
@@ -198,6 +199,7 @@ const { activeNav } = Astro.props;
   .menu-icon.is-active .close {
     @apply opacity-100;
   }
+  } /* @layer components */
 </style>
 
 <script>
