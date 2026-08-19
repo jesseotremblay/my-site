@@ -17,6 +17,6 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src/**/*", ".eslintrc.json"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

@@ -5,7 +5,7 @@ import Main from "../layouts/Main.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Pagination from "../components/Pagination.astro";
-import Card from "../components/Card";
+import Card, { type Frontmatter } from "../components/Card";
 import MicroCard from "../components/MicroCard.astro";
 import { SITE } from "../config";
 
@@ -41,7 +41,7 @@ const { currentPage, totalPages, paginatedPosts } = Astro.props;
               return (
                 <Card
                   href={post.type === 'blog' ? `/posts/${post.slug}/` : `/links/${post.slug}/`}
-                  frontmatter={post.data}
+                  frontmatter={post.data as Frontmatter}
                   secHeading={false}
                   isLinkPost={post.type === 'links'}
                 />

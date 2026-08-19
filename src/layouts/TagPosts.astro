@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import Main from "../layouts/Main.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Card from "../components/Card";
+import Card, { type Frontmatter } from "../components/Card";
 import Pagination from "../components/Pagination.astro";
 import { SITE } from "../config";
 
@@ -37,7 +37,7 @@ const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;
           const isLinkPost = collection === "links";
           
           return (
-            <Card href={href} frontmatter={data} isLinkPost={isLinkPost} />
+            <Card href={href} frontmatter={data as Frontmatter} isLinkPost={isLinkPost} />
           );
         })
       }

@@ -9,12 +9,6 @@ import { SITE } from "@config";
 import getSortedLinkPosts from "@utils/getSortedLinkPosts";
 import { withSlug } from "@utils/getSlugFromId";
 
-export async function getStaticProps() {
-  return {
-    props: { posts: await getCollection("links") },
-  };
-}
-
 const posts = await getCollection("links", ({ data }) => !data.draft);
 
 const sortedPosts = getSortedLinkPosts(posts).map(withSlug);
@@ -75,6 +69,7 @@ const sortedPosts = getSortedLinkPosts(posts).map(withSlug);
 </Layout>
 
 <style>
+  @reference "../styles/base.css";
   /* ===== Hero Section ===== */
   #hero {
     @apply pb-6 pt-8;

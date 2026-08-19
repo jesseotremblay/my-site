@@ -1,26 +1,39 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+
+/* Skin color theme — CSS variables let us swap palettes per data-theme.
+   @theme inline passes the var() reference through so utilities like
+   bg-skin-fill resolve at runtime, enabling CSS-level dark/light switching. */
+@theme inline {
+  --color-skin-fill: var(--color-fill);
+  --color-skin-accent: var(--color-accent);
+  --color-skin-base: var(--color-text-base);
+  --color-skin-muted: var(--color-text-muted);
+  --color-skin-inverted: var(--color-fill);
+  --color-skin-card: var(--color-card);
+  --color-skin-card-muted: var(--color-card-muted);
+  --color-skin-line: var(--color-border);
+}
 
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 242, 245, 236;
-    --color-text-base: 53, 53, 56;
-    --color-text-muted: 107, 114, 128;
-    --color-accent: 17, 88, 209;
-    --color-card: 206, 213, 180;
-    --color-card-muted: 187, 199, 137;
-    --color-border: 124, 173, 255;
+    --color-fill: rgb(242, 245, 236);
+    --color-text-base: rgb(53, 53, 56);
+    --color-text-muted: rgb(107, 114, 128);
+    --color-accent: rgb(17, 88, 209);
+    --color-card: rgb(206, 213, 180);
+    --color-card-muted: rgb(187, 199, 137);
+    --color-border: rgb(124, 173, 255);
   }
   html[data-theme="dark"] {
-    --color-fill: 0, 1, 35;
-    --color-accent: 97, 123, 255;
-    --color-text-base: 234, 237, 243;
-    --color-text-muted: 156, 163, 175;
-    --color-card: 33, 34, 83;
-    --color-card-muted: 12, 14, 79;
-    --color-border: 48, 63, 138;
+    --color-fill: rgb(0, 1, 35);
+    --color-accent: rgb(97, 123, 255);
+    --color-text-base: rgb(234, 237, 243);
+    --color-text-muted: rgb(156, 163, 175);
+    --color-card: rgb(33, 34, 83);
+    --color-card-muted: rgb(12, 14, 79);
+    --color-border: rgb(48, 63, 138);
   }
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
@@ -31,8 +44,12 @@
     display: block;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill font-mono text-skin-base
-    selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill font-mono text-skin-base;
+  }
+  /* Selection uses color-mix for opacity since bg-opacity-* is removed in v4 */
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-accent) 70%, transparent);
+    color: var(--color-fill);
   }
   section,
   footer {
@@ -54,14 +71,14 @@
     @apply prose-headings:!mb-3 prose-headings:!text-skin-base
     prose-h3:italic prose-p:!text-skin-base
     prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8
-    hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent
-    prose-blockquote:border-opacity-50 prose-blockquote:opacity-80
+    hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent/50
+    prose-blockquote:opacity-80
     prose-figcaption:!text-skin-base prose-figcaption:opacity-70
     prose-strong:!text-skin-base
 
 
-    prose-code:rounded prose-code:bg-skin-card
-    prose-code:bg-opacity-75 prose-code:p-1
+    prose-code:rounded prose-code:bg-skin-card/75
+    prose-code:p-1
     prose-code:before:!content-none prose-code:after:!content-none
     prose-ol:!text-skin-base
     prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent
@@ -86,7 +103,7 @@
     @apply inline-block cursor-pointer select-none text-skin-base;
   }
   .prose summary {
-    @apply focus-outline;
+    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
   .prose h2#table-of-contents + p {
     @apply hidden;

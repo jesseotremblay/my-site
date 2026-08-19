@@ -1,9 +1,17 @@
 import { slugifyStr } from "@utils/slugify";
 import Datetime from "./Datetime";
 
+export interface Frontmatter {
+  title: string;
+  pubDatetime: string | Date;
+  modDatetime?: Date | null | undefined;
+  description?: string | undefined;
+  linkURL?: string | undefined;
+}
+
 export interface Props {
   href?: string;
-  frontmatter: any;
+  frontmatter: Frontmatter;
   secHeading?: boolean;
   isLinkPost?: boolean;
 }
